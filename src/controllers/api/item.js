@@ -88,9 +88,9 @@ API.registerCall(
   ]
 )
 
-router.get('/list', async (req, res, next) => {
+router.get('/list/:includeHair', async (req, res, next) => {
   try{
-    const items = await MapleItem.getList()
+    const items = await MapleItem.getList(req.params.includeHair)
     res.success(items)
   }catch(ex){
     res.status(500).send({error: ex.message || ex, trace: ex.trace || null, stack: ex.stack || null})

@@ -13,7 +13,7 @@ function GetShops(filter){
         room: room('room'),
         characterName: shop('characterName'),
         shopName: shop('shopName'),
-        items: shop('items').eqJoin('id', r.db('maplestory').table('items')).map(function(item){
+        items: shop('items').eqJoin('id', r.db('maplestory').table('items')).filter(function(item){ return item('right')('Description') }).map(function(item){
           return item('left')
           .merge(item('right')('Description'))
           .merge(r.branch(item('right')('TypeInfo'), item('right')('TypeInfo'), {'Category': 'Unknown', 'OverallCategory': 'Unknown', 'SubCategory': 'Unknown'}))

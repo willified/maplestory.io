@@ -32,7 +32,7 @@ function GetItems(filter){
           shopName: shop('shopName'),
         })
     })
-  }).eqJoin('id', r.db('maplestory').table('items')).map(function(item){
+  }).eqJoin('id', r.db('maplestory').table('items')).filter(function(item){ return item('right')('Description') }).map(function(item){
     return item('left')
       .merge(item('right')('Description'))
       .merge(r.branch(item('right')('TypeInfo'), item('right')('TypeInfo'), {'Category': 'Unknown', 'OverallCategory': 'Unknown', 'SubCategory': 'Unknown'}))
